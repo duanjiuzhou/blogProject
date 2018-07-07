@@ -35,7 +35,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/"><img src="/img/polar-logo.png" height="100%"
-                                                          alt=""></a>
+                                                  alt=""></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -71,260 +71,52 @@
         </div>
     </div>
 </div>
-
 <!-- tags -->
 <div class="container tags-box">
-    <a href="#" class="tag tag-active">全部标签</a>
-    <a href="#" class="tag">222</a>
-    <a href="#" class="tag">阿斯顿撒多多</a>
-    <a href="#" class="tag">大萨达多</a>
-</div>
+    <% if(index == '-1'){ %>
+    <a href="/blog" class="tag tag-active">全部标签</a>
+    <% }else{ %>
+    <a href="/blog" class="tag">全部标签</a>
+    <% } %>
 
+    <% for(let [i, v] of lableList.entries()){ %>
+    <% if(index == v.id){ %>
+    <a href="/blog/lable/<%= v.id %>" class="tag tag-active"><%= v.lable %></a>
+    <% }else{ %>
+    <a href="/blog/lable/<%= v.id %>" class="tag"><%= v.lable %></a>
+    <% } %>
+    <% } %>
+</div>
 <!-- content list  -->
 <div class="container content-box">
     <div class="row">
+        <% for(let [i, v] of blogList.entries()){ %>
         <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
             <div class="thumbnail content-box-list">
-                <a href="/blog/details" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/1.jpeg')"></div>
+                <a href="/blog/details/<%= v.id %>" class="post-box">
+                    <div class="post-box-image" style="background-image: url('<%= v.imgUrl %>')"></div>
                 </a>
-                <a href="#" class="category">心情笔记</a>
+                <a href="/blog/lable/<%= v.lableId %>" class="category"><%= v.lable %></a>
                 <div class="caption-wrap">
                     <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
+                        <div class="caption-title"><a href="#"><%= v.title %></a></div>
                         <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
+                            <%= v.synopsis %>
                         </div>
                     </div>
                     <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
+                        <span><i class="iconfont icon-shijian"></i> <%= v.creatTime %></span>
+                        <span class=""><i class="iconfont icon-ai44"></i>(<%= v.accessNumber %>)</span>
+                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(<%= v.commentNumber %>)</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
-            <div class="thumbnail content-box-list">
-                <a href="/blog/details" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/2.jpeg')"></div>
-                </a>
-                <a href="#" class="category">心情笔记</a>
-                <div class="caption-wrap">
-                    <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
-                        <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
-                        </div>
-                    </div>
-                    <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
-            <div class="thumbnail content-box-list">
-                <a href="#" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/3.jpeg')"></div>
-                </a>
-                <a href="#" class="category">心情笔记</a>
-                <div class="caption-wrap">
-                    <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
-                        <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
-                        </div>
-                    </div>
-                    <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
-            <div class="thumbnail content-box-list">
-                <a href="#" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/4.jpeg')"></div>
-                </a>
-                <a href="#" class="category">心情笔记</a>
-                <div class="caption-wrap">
-                    <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
-                        <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
-                        </div>
-                    </div>
-                    <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
-            <div class="thumbnail content-box-list">
-                <a href="#" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/5.jpeg')"></div>
-                </a>
-                <a href="#" class="category">心情笔记</a>
-                <div class="caption-wrap">
-                    <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
-                        <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
-                        </div>
-                    </div>
-                    <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
-            <div class="thumbnail content-box-list">
-                <a href="#" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/6.jpeg')"></div>
-                </a>
-                <a href="#" class="category">心情笔记</a>
-                <div class="caption-wrap">
-                    <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
-                        <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
-                        </div>
-                    </div>
-                    <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
-            <div class="thumbnail content-box-list">
-                <a href="#" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/1.jpeg')"></div>
-                </a>
-                <a href="#" class="category">心情笔记</a>
-                <div class="caption-wrap">
-                    <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
-                        <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
-                        </div>
-                    </div>
-                    <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3  col-xs-12">
-            <div class="thumbnail content-box-list">
-                <a href="#" class="post-box">
-                    <div class="post-box-image" style="background-image: url('/img/test/2.jpeg')"></div>
-                </a>
-                <a href="#" class="category">心情笔记</a>
-                <div class="caption-wrap">
-                    <div class="caption-box">
-                        <div class="caption-title"><a href="#">五一黄金周，动感哪有游</a></div>
-                        <div class="caption-info">
-                            斯顿撒主题第一版发出来后，又马不停蹄地进行了各种优化。
-                            自己在制作主题的时候也遵循了MVP的原则，
-                            在这个基础撒大声地撒大所多撒大时代撒多阿萨
-                        </div>
-                    </div>
-                    <div class="caption-footer clearfix">
-                        <span><i class="iconfont icon-shijian"></i> 2018-03-22</span>
-                        <span class=""><i class="iconfont icon-ai44"></i>(3132)</span>
-                        <span class=""><i class="iconfont icon-yonghupinglun"></i>(10)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <% } %>
     </div>
 </div>
 
-
-<footer class="footer-box">
-    <div class="footer-box-other">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="footer-box-title">
-                        孟烦了的独立博客
-                    </div>
-                    <div class="footer-box-info">
-                        也许是一路上千万种选择，至以博客的诞生。借此在漫漫的长河中，愿与各位时间的朋友结缘。
-                        分享孟烦了在前端、nodeJS、web中的各种点滴。纵有千种风情，更欲与君同！
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="footer-box-title">
-                        相关链接
-                    </div>
-                    <div class="footer-box-link">
-                        <a href="#">技术分享</a>
-                        <a href="#">心情随笔</a>
-                        <a href="#">英雄榜</a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="footer-box-title">
-                        友情链接
-                    </div>
-                    <div class="footer-box-link">
-                        <a href="#">亚梅</a>
-                        <a href="#">飞跃</a>
-                        <a href="#">二狗</a>
-                    </div>
-                    <div class="footer-box-me">
-                        <a href="#"><i class="iconfont icon-weibo"></i></a>
-                        <a href="#"><i class="iconfont icon-weixin "></i></a>
-                        <a href="#"><i class="iconfont icon-github3"></i></a>
-                        <a href="#"><i class="iconfont icon-youxiang"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-box-copyright">
-        <div class="container">
-            <div class="col-lg-12 col-md-12">
-                <div class="footer-box-copyright--info">
-                    <p>design & code by @孟烦了,base on koa2 + mongoDB</p>
-                    <p>孟烦了的独立博客© 2018-2019 • All rights reserved.</p>
-                    <p>感谢七牛云存储提供静态资源空间，阿里云提供的优质云服务。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+<% include ./footer.ejs %>
 <!-- go to top -->
 <i id="thumbtack" class="iconfont icon-huojian"></i>
 

@@ -28,7 +28,7 @@
     <div id="header">
         <h1>LOGIN</h1>
     </div>
-    <form action="/api/login.do" method="POST">
+    <form id="form-box">
         <div class="group">
             <input class="inputMaterial" type="text" name="userName" required>
             <span class="bar"></span>
@@ -39,7 +39,7 @@
             <span class="bar"></span>
             <label>密码：</label>
         </div>
-        <button id="buttonlogintoregister" type="submit">登录</button>
+        <button id="buttonlogintoregister" type="button">登录</button>
     </form>
     <div id="footer-box">
         <p class="footer-text">Not a member?<span class="sign-up"> Sign up now</span></p>
@@ -51,5 +51,6 @@
 <script src="/lib/bootstrap/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/lib/bootstrap/ie10-viewport-bug-workaround.js"></script>
+<script src="/js/login.js"></script>
 </body>
 </html>

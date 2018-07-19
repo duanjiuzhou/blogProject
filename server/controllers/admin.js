@@ -8,8 +8,8 @@ module.exports = {
         })
     },
     async labelTable(ctx) {
-        const lableList = await Get_LableList();
-        console.log(lableList);
+        // const lableList = await Get_LableList();
+        const lableList = [{}];
         await ctx.render('admin/labelTable', {
             lableList,
         })

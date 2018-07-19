@@ -6,6 +6,6 @@ const apiContollor = require('../controllers/user-info');
 
 const routers = router
     .post('/login.do',apiContollor.signIn)
-    .get('/LableList.do',apiContollor._Get_LableList)
+    .get('/LableList.do',apiContollor._Get_LabelList)
 
 module.exports = routers;

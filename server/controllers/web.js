@@ -1,4 +1,4 @@
-const {Get_BlogList,Get_LableList} = require("../../init/db-util");
+const {Get_BlogList,Get_LabelList} = require("../../init/db-util");
 
 module.exports = {
     async blog(ctx) {
@@ -14,9 +14,9 @@ module.exports = {
         else{
             blogList = await Get_BlogList(false);
         }
-        const lableList = await Get_LableList();
+        const labelList = await Get_LabelList();
         await ctx.render('web/blog', {
-            blogList,lableList,index
+            blogList,labelList,index
         })
     },
     async moods(ctx) {

@@ -1,4 +1,4 @@
-const {Get_LableList} = require("../../init/db-util");
+const {Get_LabelList} = require("../../init/db-util");
 
 /**
  * 登录操作
@@ -13,7 +13,7 @@ console.log('用户账号密码信息：',ctx.request.body)
  * 标签列表
  * @param {object} ctx 上下文对象
  */
-const _Get_LableList = async (ctx) =>{
+const _Get_LabelList = async (ctx) =>{
     console.log('get标签列表label:',ctx.query.label)
     let data = null;
     try{
@@ -21,7 +21,7 @@ const _Get_LableList = async (ctx) =>{
             success: true,
             message: '操作成功'
         }
-        data.list = await Get_LableList(ctx.query.label);
+        data.list = await Get_LabelList(ctx.query.label);
 
     }catch(err) {
         data = {
@@ -34,4 +34,4 @@ const _Get_LableList = async (ctx) =>{
 }
 
 
-module.exports = {signIn,_Get_LableList}
+module.exports = {signIn,_Get_LabelList}

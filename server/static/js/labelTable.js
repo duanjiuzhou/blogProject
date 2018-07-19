@@ -15,7 +15,8 @@ $(function () {
                     var htmlData = '';
                     var data = response.list;
                     for (var i = 0, n = data.length; i < n; i++) {
-                        htmlData += '<tr><th scope="row">' + i + 1 + '</th><td>' + data[i].label + '</td><td>' +
+                        var index = i+1;
+                        htmlData += '<tr><th scope="row">' + index + '</th><td>' + data[i].label + '</td><td>' +
                             '<button type="button" class="btn btn-primary btn-sm" id="updateLabel">修改</button>' +
                             '<button type= "button" class="btn btn-danger btn-sm" id="deleteLabel" value='+data[i].id+'>删除</button></td>'+
                             '<td>'+data[i].createTime+'</td></tr>'

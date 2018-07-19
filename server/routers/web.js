@@ -6,7 +6,7 @@ const router = require('koa-router')();
 const web = require('../controllers/web');
 const routes = router
     .get('/',web.blog)
-    .get('/lable/:data',async (ctx)=>{
+    .get('/label/:data',async (ctx)=>{
         await web.blog(ctx)
     })
     .get('/moods',web.moods)

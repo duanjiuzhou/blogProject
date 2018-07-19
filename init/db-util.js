@@ -9,7 +9,7 @@ const query = require('./db');
 const Get_BlogList = function( single,id ) {
     let sql = '';
     if(single){
-         sql = `SELECT * from BlogList where lableId=${id}`;
+         sql = `SELECT * from BlogList where labelId=${id}`;
     }else {
          sql = `SELECT * from BlogList`;
     }
@@ -21,8 +21,13 @@ const Get_BlogList = function( single,id ) {
  * @param value {array} [label]  label: 标签名称
  * @constructor
  */
-const Get_LableList = function (value) {
-    const sql = `SELECT * from LableList WHERE label=?`;
+const Get_LabelList = function (value) {
+    let sql = null;
+    if(value){
+        sql = `SELECT * from LabelList WHERE label=?`;
+    }else {
+        sql = `SELECT * from LabelList`;
+    }
     return query( sql, [value] )
 };
 
@@ -31,8 +36,8 @@ const Get_LableList = function (value) {
  * @param value {array} [label,id]  label: 标签名称 id: 标签id
  * @constructor
  */
-const Update_LableList = function (value) {
-    const sql = `UPDATE LableList SET label=? WHERE id=?`;
+const Update_LabelList = function (value) {
+    const sql = `UPDATE LabelList SET label=? WHERE id=?`;
     return query( sql, [value] )
 };
 
@@ -41,8 +46,8 @@ const Update_LableList = function (value) {
  * @param value {array} [label] label: 标签名称
  * @constructor
  */
-const Insert_LableList = function (value) {
-    const sql = `INSERT INTO LableList (label) VALUES(?)`;
+const Insert_LabelList = function (value) {
+    const sql = `INSERT INTO LabelList (label) VALUES(?)`;
     return query( sql, [value] )
 };
 
@@ -51,16 +56,16 @@ const Insert_LableList = function (value) {
  * @param value {array} [id] id: 标签id
  * @constructor
  */
-const Delete_LableList = function (value) {
-    const sql = `DELETE FROM LableList WHERE id=?`;
+const Delete_LabelList = function (value) {
+    const sql = `DELETE FROM LabelList WHERE id=?`;
     return query( sql, [value] )
 };
 
 
 module.exports = {
     Get_BlogList,
-    Get_LableList,
-    Update_LableList,
-    Insert_LableList,
-    Delete_LableList,
+    Get_LabelList,
+    Update_LabelList,
+    Insert_LabelList,
+    Delete_LabelList,
 };

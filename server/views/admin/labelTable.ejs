@@ -66,16 +66,19 @@
             </tr>
             </thead>
             <tbody>
+            <% for(let [i, v] of lableList.entries()){ %>
             <tr>
-                <th scope="row">1</th>
-                <td>vue</td>
+                <th scope="row"><%= i+1 %></th>
+                <td><%= v.label %></td>
                 <td>
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#labelModal">修改
                     </button>
                     <button type="button" class="btn btn-danger btn-sm">删除</button>
                 </td>
-                <td>2018.6.16</td>
+                <td><%= v.createTime %></td>
             </tr>
+            <% } %>
+
             </tbody>
         </table>
     </div>

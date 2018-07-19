@@ -1,3 +1,5 @@
+const {Get_LableList} = require("../../init/db-util");
+
 module.exports = {
     async blogManage(ctx) {
         const title = '';
@@ -6,9 +8,10 @@ module.exports = {
         })
     },
     async labelTable(ctx) {
-        const title = '';
+        const lableList = await Get_LableList();
+        console.log(lableList);
         await ctx.render('admin/labelTable', {
-            title,
+            lableList,
         })
     },
 };

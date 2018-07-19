@@ -1,5 +1,4 @@
-const {Get_BlogList,Get_LableList} = require("../../init/db-util")
-
+const {Get_BlogList,Get_LableList} = require("../../init/db-util");
 
 module.exports = {
     async blog(ctx) {

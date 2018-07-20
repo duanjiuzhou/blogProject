@@ -22,6 +22,8 @@ $(function () {
                             '<td>'+data[i].createTime+'</td></tr>'
                     }
                     $("#table-tbody").html(htmlData);
+                }else {
+                    $("#table-tbody").html('<tr align="center"><td colspan="4">暂无数据</td></tr>');
                 }
             },
             error: function (err) {
@@ -48,9 +50,41 @@ $(function () {
         addOrSetLabel = addOrSetLabelState;
         $('#labelModal').modal('show');
     }
+
+    /**
+     * 新建或修改标签提交
+     * @param url         {string}  请求地址
+     * @param requestType {string}  请求类型
+     * @param id          {string}  标签id（修改标签时使用）
+     */
+    function addOrSetSubmit(url,requestType,id) {
+        id = id || '';
+        $.ajax({
+            type: requestType,
+            url: url,
+            data: $('#label-modal-form').serialize()+id,
+            success: function (response) {
+                console.log('新建或修改标签提交:', response);
+                if(response.success){
+                    searchLabel();
+                    $.growl.notice({
+                        title: "提示",
+                        message: response.message
+                    });
+                }else {
+                    $.growl.error({
+                        title: "提示",
+                        message: response.message,
+                    });
+                }
+            },
+            error: function (err) {
+                console.log('err', err);
+            }
+        })
+    }
     
-    
-    
+
     /**
      * 点击关闭标签模态框
      */
@@ -79,7 +113,17 @@ $(function () {
      * 保存提交
      */
     $("#saveSubmit").on('click', function () {
-
+        if(!$("#label-name").val()){
+            return alert('标签内容不能为空');
+        }
+        // 修改
+        if(addOrSetLabel){
+            addOrSetSubmit('/api/label/update.do','PUT','&id='+$("#deleteLabel").val())
+        }
+        // 新增
+        else {
+            addOrSetSubmit('/api/label/insert.do','POST')
+        }
         closeLabelModal();
     });
 });

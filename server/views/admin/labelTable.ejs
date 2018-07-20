@@ -14,6 +14,7 @@
     <link href="/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="/lib/bootstrap/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="/lib/messageBox/jquery.growl.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -66,6 +67,7 @@
             </tr>
             </thead>
             <tbody id="table-tbody">
+            <% if(lableList.length != 0){ %>
             <% for(let [i, v] of lableList.entries()){ %>
             <tr>
                 <th scope="row"><%= i+1 %></th>
@@ -78,7 +80,11 @@
                 <td><%= v.createTime %></td>
             </tr>
             <% } %>
-
+            <% }else { %>
+            <tr align="center">
+                <td colspan="4">暂无数据</td>
+            </tr>
+            <% } %>
             </tbody>
         </table>
     </div>
@@ -96,7 +102,7 @@
                     <form id="label-modal-form">
                         <div class="form-group">
                             <label for="label">标签名称：</label>
-                            <input type="text" name="label" class="form-control" maxlength="30">
+                            <input type="text" name="label" class="form-control" id="label-name" maxlength="30">
                         </div>
                     </form>
                 </div>
@@ -113,6 +119,7 @@
 <script src="/lib/bootstrap/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/lib/bootstrap/ie10-viewport-bug-workaround.js"></script>
+<script src="/lib/messageBox/jquery.growl.js"></script>
 <script src="/js/labelTable.js"></script>
 </body>
 </html>

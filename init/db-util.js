@@ -38,12 +38,12 @@ const Get_LabelList = function (value) {
  */
 const Update_LabelList = function (value) {
     const sql = `UPDATE LabelList SET label=? WHERE id=?`;
-    return query( sql, [value] )
+    return query( sql, value )
 };
 
 /**
  * 新增标签列表
- * @param value {array} [label] label: 标签名称
+ * @param value {string}  label: 标签名称
  * @constructor
  */
 const Insert_LabelList = function (value) {
@@ -53,7 +53,7 @@ const Insert_LabelList = function (value) {
 
 /**
  * 删除标签列表
- * @param value {array} [id] id: 标签id
+ * @param value {string}  id: 标签id
  * @constructor
  */
 const Delete_LabelList = function (value) {

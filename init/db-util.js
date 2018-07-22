@@ -9,11 +9,60 @@ const query = require('./db');
 const Get_BlogList = function( single,id ) {
     let sql = '';
     if(single){
-         sql = `SELECT * from BlogList where labelId=${id}`;
+         sql = `SELECT id,label,imgUrl,title,synopsis,createTime,accessNumber,commentNumber,labelId from bloglist where labelId=${id}`;
     }else {
-         sql = `SELECT * from BlogList`;
+         sql = `SELECT id,label,imgUrl,title,synopsis,createTime,accessNumber,commentNumber,labelId from bloglist`;
     }
-    return query( sql, [] )
+    return query( sql )
+};
+
+/**
+ * 获取全部博客管理列表 或查询一条博客数据
+ * @param value {array}
+ * @constructor
+ */
+const Get_AdminBlogList = function (value) {
+    let sql = null;
+    if(value){
+        sql = 'SELECT id,createTime,title from bloglist  WHERE title=?';
+    }else {
+        sql = 'SELECT id,createTime,title from bloglist';
+    }
+    return query( sql,[value] )
+};
+
+/**
+ * 更新博客列表
+ * @param value {array}
+ * @constructor
+ */
+const  Update_BlogList = function (value) {
+    const sql = `UPDATE bloglist SET 
+                  label=?,imgUrl=?,title=?,synopsis=?,content=?,
+                  createTime=?,accessNumber=?,commentNumber=?,labelId=? WHERE id=?`;
+    return query( sql, value )
+};
+
+/**
+ * 新增博客列表
+ * @param value {array}
+ * @constructor
+ */
+const  Insert_BlogList = function (value) {
+    const sql = `INSERT INTO bloglist 
+                (label,imgUrl,title,synopsis,content,createTime,accessNumber,commentNumber,labelId) 
+                VALUES(?,?,?,?,?,?,?,?,?)`;
+    return query( sql, value )
+};
+
+/**
+ * 删除博客列表
+ * @param value {string}
+ * @constructor
+ */
+const Delete_BlogList = function (value) {
+    const sql = `DELETE FROM bloglist WHERE id=?`;
+    return query( sql, [value] )
 };
 
 /**
@@ -24,9 +73,9 @@ const Get_BlogList = function( single,id ) {
 const Get_LabelList = function (value) {
     let sql = null;
     if(value){
-        sql = `SELECT * from LabelList WHERE label=?`;
+        sql = `SELECT * from labellist WHERE label=?`;
     }else {
-        sql = `SELECT * from LabelList`;
+        sql = `SELECT * from labellist`;
     }
     return query( sql, [value] )
 };
@@ -37,7 +86,7 @@ const Get_LabelList = function (value) {
  * @constructor
  */
 const Update_LabelList = function (value) {
-    const sql = `UPDATE LabelList SET label=? WHERE id=?`;
+    const sql = `UPDATE labellist SET label=? WHERE id=?`;
     return query( sql, value )
 };
 
@@ -47,7 +96,7 @@ const Update_LabelList = function (value) {
  * @constructor
  */
 const Insert_LabelList = function (value) {
-    const sql = `INSERT INTO LabelList (label) VALUES(?)`;
+    const sql = `INSERT INTO labellist (label) VALUES(?)`;
     return query( sql, [value] )
 };
 
@@ -57,13 +106,17 @@ const Insert_LabelList = function (value) {
  * @constructor
  */
 const Delete_LabelList = function (value) {
-    const sql = `DELETE FROM LabelList WHERE id=?`;
+    const sql = `DELETE FROM labellist WHERE id=?`;
     return query( sql, [value] )
 };
 
 
 module.exports = {
     Get_BlogList,
+    Get_AdminBlogList,
+    Update_BlogList,
+    Insert_BlogList,
+    Delete_BlogList,
     Get_LabelList,
     Update_LabelList,
     Insert_LabelList,

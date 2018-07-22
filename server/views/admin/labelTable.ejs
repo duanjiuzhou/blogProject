@@ -73,9 +73,9 @@
                 <th scope="row"><%= i+1 %></th>
                 <td><%= v.label %></td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" id="updateLabel">修改
+                    <button type="button" class="btn btn-primary btn-sm updateLabel" value="<%= v.id %>">修改
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm" id="deleteLabel" value="<%= v.id %>">删除</button>
+                    <button type="button" class="btn btn-danger btn-sm deleteLabel" value="<%= v.id %>">删除</button>
                 </td>
                 <td><%= v.createTime %></td>
             </tr>

@@ -7,12 +7,12 @@ module.exports = {
         let labelList = null;
         // 查询单个标签数据
         if(ctx.params.data){
-            try{
-                blogList = await Get_BlogList(true,ctx.params.data);
-                index = ctx.params.data;
-            }catch (err){
+            await Get_BlogList(true,ctx.params.data).then(async res => {
+                blogList = res;
+                index = ctx.params.data
+            }).catch(err => {
                 blogList = [];
-            }
+            });
 
         }
         // 查询全部数据
@@ -29,7 +29,6 @@ module.exports = {
         }).catch (err => {
             labelList = [];
         })
-
         await ctx.render('web/blog', {
             blogList,labelList,index
         })

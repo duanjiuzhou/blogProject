@@ -1,21 +1,27 @@
-const {Get_LabelList} = require("../../init/db-util");
+const {Get_LabelList,Get_AdminBlogList} = require("../../init/db-util");
 
 module.exports = {
     async blogManage(ctx) {
-        const title = '';
+        let blogList = null;
+        await Get_AdminBlogList().then(async res => {
+            blogList = res;
+        }).catch(err => {
+            blogList = [];
+        })
         await ctx.render('admin/blogManage', {
-            title,
+            blogList
         })
     },
     async labelTable(ctx) {
         let lableList = null;
-            try{
-                lableList = await Get_LabelList();
-            }catch (err){
-                lableList = [{}];
-            }
+        await Get_LabelList().then(async res => {
+            lableList = res;
+        }).catch(err => {
+            lableList = [];
+        })
+
         await ctx.render('admin/labelTable', {
-            lableList,
+            lableList
         })
     },
 };

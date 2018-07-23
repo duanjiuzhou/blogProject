@@ -40,16 +40,6 @@ $(function () {
             }
         })
     }
-    
-    /**
-     * 关闭标签模态框
-     */
-    function closeLabelModal() {
-        $('#labelModal').modal('hide');
-        $('#label-modal-form')[0].reset();
-        labelId = null;
-        addOrSetLabel = null;
-    }
 
     /**
      * 打开新建或者修改模态框
@@ -87,7 +77,7 @@ $(function () {
                         message: response.message,
                     });
                 }
-                closeLabelModal();
+                $('#labelModal').modal('hide');
             },
             error: function (err) {
                 console.log('err', err);
@@ -101,9 +91,14 @@ $(function () {
     
 
     /**
-     * 点击关闭标签模态框
+     * 点击关闭标签模态框回调
      */
-    $('#closeLabelModal').on('click', closeLabelModal);
+    $('#labelModal').on('hidden.bs.modal', function (e) {
+        $('#label-modal-form')[0].reset();
+        labelId = null;
+        addOrSetLabel = null;
+    })
+
 
     /**
      * 点击搜索获取标签列表
@@ -145,7 +140,10 @@ $(function () {
      */
     $("#saveSubmit").on('click', function () {
         if(!$("#label-name").val()){
-            return alert('标签内容不能为空');
+            return $.growl.warning({
+                title: "提示",
+                message: '标签内容不能为空',
+            });
         }
         // 修改
         if(addOrSetLabel){

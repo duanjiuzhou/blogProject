@@ -1,4 +1,7 @@
 $(function () {
+    var addOrSetLabel = null; // 创建或者修改标签 {number} 0/1 0:创建 1：修改
+    var labelId = null; // 修改或者删除标签id
+
     $('#oriContent').on('keyup',function () {
         $("#showContent").html(marked(this.value))
     })
@@ -41,4 +44,22 @@ $(function () {
             }
         })
     }
+
+    /**
+     * 打开新建或者修改模态框
+     * @param modalTitle           {string} 模态框标题
+     * @param addOrSetLabelState   {number} 创建或者修改标签状态
+     */
+    function openAddOrSetModal(modalTitle,addOrSetLabelState) {
+        $("#myModalBlog").html(modalTitle);
+        addOrSetLabel = addOrSetLabelState;
+        $('#blogModal').modal('show');
+    }
+
+    /**
+     * 点击打开创建模态框
+     */
+    $("#createBlog").on('click', function () {
+        openAddOrSetModal('创建',0)
+    });
 });

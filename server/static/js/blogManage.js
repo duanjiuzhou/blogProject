@@ -4,7 +4,9 @@ $(function () {
 
     $('#oriContent').on('keyup',function () {
         $("#showContent").html(marked(this.value))
-    })
+    });
+
+
     /**
      * 获取博客列表
      * @param isData 是否带搜索框中数据进行查询 为true则不带值查询

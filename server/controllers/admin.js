@@ -23,11 +23,11 @@ module.exports = {
     async labelTable(ctx) {
         let labelList = null;
         await Get_LabelList().then(async res => {
-            lableList = res;
+            labelList = res;
+
         }).catch(err => {
             labelList = [];
         })
-
         await ctx.render('admin/labelTable', {
             labelList
         })

@@ -38,8 +38,7 @@ const Get_AdminBlogList = function (value) {
  */
 const  Update_BlogList = function (value) {
     const sql = `UPDATE bloglist SET 
-                  label=?,imgUrl=?,title=?,synopsis=?,content=?,
-                  createTime=?,accessNumber=?,commentNumber=?,labelId=? WHERE id=?`;
+                  label=?,imgUrl=?,title=?,synopsis=?,content=?,labelId=? WHERE id=?`;
     return query( sql, value )
 };
 

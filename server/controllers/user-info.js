@@ -1,5 +1,6 @@
 const {Get_LabelList,Update_LabelList, Insert_LabelList,Delete_LabelList,
         Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,} = require("../../init/db-util");
+const {SetDateYMDHMS} = require('../utils/timeDral');
 
 /**
  * 登录操作
@@ -155,15 +156,15 @@ const _Update_BlogList = async (ctx) =>{
     const requestData = ctx.request.body;
     console.log('更新数据：',requestData)
     if(!requestData.label || !requestData.imgUrl || !requestData.title || !requestData.synopsis || !requestData.content
-        || !requestData.createTime || !requestData.accessNumber || !requestData.commentNumber || !requestData.labelId || !requestData.id){
+       || !requestData.labelId || !requestData.id){
         data = {
             success: false,
             message: '参数有误'
         }
     }else {
         await Update_BlogList([
-            requestData.label,requestData.imgUrl,requestData.title,requestData.synopsis,requestData.content,
-            requestData.createTime,requestData.accessNumber,requestData.commentNumber,requestData.labelId,requestData.id,
+            requestData.label,requestData.imgUrl,requestData.title,requestData.synopsis,
+            requestData.content, requestData.labelId,requestData.id,
         ]).then(async res => {
             console.log('更新标签列表: ',res)
             data = {
@@ -190,9 +191,8 @@ const _Insert_BlogList = async (ctx) =>{
     let data = null;
     const requestData = ctx.request.body;
     console.log('新增数据：',requestData)
-    label,imgUrl,title,synopsis,content,createTime,accessNumber,commentNumber,labelId
-    if(!requestData.label || !requestData.imgUrl || !requestData.title || !requestData.synopsis || !requestData.content
-        || !requestData.createTime || !requestData.accessNumber || !requestData.commentNumber || !requestData.labelId) {
+    if(!requestData.label || !requestData.imgUrl || !requestData.title ||
+        !requestData.synopsis || !requestData.content || !requestData.labelId) {
         data = {
             success: false,
             message: '参数有误'
@@ -200,7 +200,7 @@ const _Insert_BlogList = async (ctx) =>{
     }else {
         await Insert_BlogList([
             requestData.label,requestData.imgUrl,requestData.title,requestData.synopsis,requestData.content,
-            requestData.createTime,requestData.accessNumber,requestData.commentNumber,requestData.labelId
+            SetDateYMDHMS(),0,0,requestData.labelId
         ]).then(async res => {
             console.log('新增标签列表: ',res)
             data = {

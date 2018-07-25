@@ -166,7 +166,7 @@ $(function () {
                 message: '标签不能为空',
             });
         }
-        if(!$("#editor").val()){
+        if(!$("#oriContent").val()){
             return $.growl.warning({
                 title: "提示",
                 message: '内容不能为空',

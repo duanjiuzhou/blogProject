@@ -80,7 +80,8 @@
 
 .markdown code, .markdown pre {
     border-radius: 3px;
-
+    background-color: #282c34;
+    color: inherit
 }
 
 .markdown code {
@@ -92,8 +93,6 @@
     line-height: 1.7em;
     overflow: auto;
     padding: 6px 10px;
-    background-color: #282c34;
-    color: inherit
 }
 
 .markdown pre > code {
@@ -104,15 +103,13 @@
     margin: 0;
     overflow: initial;
     line-height: inherit;
-    font-size: 12px;
+    font-size: .85em;
     white-space: pre;
-    background: 0;
-    color: #abb2bf
+    background: 0
 }
 
 .markdown code {
-    color: #c7254e;
-    background-color: #f9f2f4;
+    color: #abb2bf
 }
 
 .markdown aside {

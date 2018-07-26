@@ -2,21 +2,8 @@ $(function () {
     var addOrSetLabel = null; // 创建或者修改标签 {number} 0/1 0:创建 1：修改
     var blogId = null; // 修改或者删除博客id
 
-    marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        sanitize: false,
-        smartLists: true,
-        smartypants: false,
-        highlight: function (code) {ipconfig/all
-            return hljs.highlightAuto(code).value;
-        }
-    })
     $('#oriContent').on('keyup',function () {
-        $("#showContent").html(marked(this.value));
+        $("#showContent").html(marked(this.value))
     });
 
 

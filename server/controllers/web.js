@@ -1,4 +1,4 @@
-const {Get_BlogList,Get_LabelList} = require("../../init/db-util");
+const {Get_BlogList,Get_LabelList,Get_BlogListOne} = require("../../init/db-util");
 
 module.exports = {
     async blog(ctx) {
@@ -40,10 +40,15 @@ module.exports = {
         })
     },
     async details(ctx) {
-        const title = '';
-        console.log(ctx.params); //获取动态路由的数据
+        console.log('获取动态路由的数据',ctx.params); //获取动态路由的数据
+        let blogList = null;
+        await Get_BlogListOne(ctx.params.data).then(async res => {
+            blogList = res[0];
+        }).catch(err => {
+            blogList = {};
+        })
         await ctx.render('web/details', {
-            title,
+            blogList,
         })
     },
 };

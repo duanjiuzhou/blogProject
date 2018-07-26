@@ -1,6 +1,6 @@
 const {Get_LabelList,Update_LabelList, Insert_LabelList,Delete_LabelList,
         Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,} = require("../../init/db-util");
-const {SetDateYMDHMS} = require('../utils/timeDral');
+const {SetDateYMD} = require('../utils/timeDral');
 
 /**
  * 登录操作
@@ -200,7 +200,7 @@ const _Insert_BlogList = async (ctx) =>{
     }else {
         await Insert_BlogList([
             requestData.label,requestData.imgUrl,requestData.title,requestData.synopsis,requestData.content,
-            SetDateYMDHMS(),0,0,requestData.labelId
+            SetDateYMD(),0,0,requestData.labelId
         ]).then(async res => {
             console.log('新增标签列表: ',res)
             data = {

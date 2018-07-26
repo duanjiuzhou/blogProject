@@ -3,10 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-body,html{
-    height:100%;
-    position:relative;
-}
 .clearfix:after{
     height: 0;
     content: '';
@@ -297,11 +293,6 @@ body,html{
     -webkit-animation-delay:0.65s;
 }
 
-.footer-box{
-    position:absolute;
-    bottom:0;
-    width:100%;
-}
 .footer-box-other{
     background-color: #0e151b;
     padding: 20px 0;

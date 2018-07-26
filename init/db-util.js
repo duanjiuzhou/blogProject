@@ -17,6 +17,16 @@ const Get_BlogList = function( single,id ) {
 };
 
 /**
+ *  查询一条博客详情数据
+ * @param value {string}
+ * @constructor
+ */
+const Get_BlogListOne = function (value) {
+    const sql = 'SELECT title,content,label,labelId,createTime,imgUrl from bloglist WHERE id=?';
+    return query(sql,[value])
+}
+
+/**
  * 获取全部博客管理列表 或查询一条博客数据
  * @param value {array}
  * @constructor
@@ -112,6 +122,7 @@ const Delete_LabelList = function (value) {
 
 module.exports = {
     Get_BlogList,
+    Get_BlogListOne,
     Get_AdminBlogList,
     Update_BlogList,
     Insert_BlogList,

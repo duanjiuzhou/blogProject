@@ -61,6 +61,39 @@ $(function () {
     };
 
     /**
+     * 查询博客列表编辑信息
+     */
+    function searchBlogOne(data) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/blog/selectOne.do',
+            data: data,
+            success: function (response) {
+                console.log('success', response);
+                if (response.success) {
+                    $("#title").val(response.list.title);
+                    $("#imgUrl").val(response.list.imgUrl);
+                    $("#synopsis").val(response.list.synopsis);
+                    $('#label').find("option[value="+ $("#label").val() +"]").attr("selected",false);
+                    $('#label').find("option[value="+response.list.labelId+"]").attr("selected",true);
+                    $("#oriContent").val(response.list.content);
+                    $("#showContent").html(marked(response.list.content));
+                }else {
+
+                }
+                openAddOrSetModal('修改',1)
+            },
+            error: function (err) {
+                console.log('err', err);
+                $.growl.error({
+                    title: "提示",
+                    message: '系统异常',
+                });
+            }
+        })
+    }
+
+    /**
      * 新建或修改或删除博客提交
      * @param url         {string}  请求地址
      * @param requestType {string}  请求类型
@@ -134,7 +167,7 @@ $(function () {
          */
         $('.updateBlog').on('click', function () {
             blogId = $(this).val();
-            openAddOrSetModal('修改',1)
+            searchBlogOne('id='+blogId);
         });
         /**
          * 点击删除博客

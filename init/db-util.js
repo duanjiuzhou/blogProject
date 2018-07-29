@@ -22,7 +22,7 @@ const Get_BlogList = function( single,id ) {
  * @constructor
  */
 const Get_BlogListOne = function (value) {
-    const sql = 'SELECT title,content,label,labelId,createTime,imgUrl from bloglist WHERE id=?';
+    const sql = 'SELECT title,content,synopsis,labelId,imgUrl from bloglist WHERE id=?';
     return query(sql,[value])
 }
 
@@ -101,12 +101,12 @@ const Update_LabelList = function (value) {
 
 /**
  * 新增标签列表
- * @param value {string}  label: 标签名称
+ * @param value {array}
  * @constructor
  */
 const Insert_LabelList = function (value) {
-    const sql = `INSERT INTO labellist (label) VALUES(?)`;
-    return query( sql, [value] )
+    const sql = `INSERT INTO labellist (label,createTime) VALUES(?,?)`;
+    return query( sql, value )
 };
 
 /**

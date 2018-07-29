@@ -18,7 +18,7 @@ $(function () {
                     for (var i = 0, n = data.length; i < n; i++) {
                         var index = i+1;
                         htmlData += '<tr><th scope="row">' + index + '</th><td>' + data[i].label + '</td><td>' +
-                            '<button style="margin-right: 5px" type="button" class="btn btn-primary btn-sm updateLabel"  value='+data[i].id+'>修改</button>' +
+                            '<button style="margin-right: 5px" type="button" class="btn btn-primary btn-sm updateLabel" data-label='+data[i].label+ ' value='+data[i].id+'>修改</button>' +
                             '<button type= "button" class="btn btn-danger btn-sm deleteLabel" value='+data[i].id+'>删除</button></td>'+
                             '<td>'+data[i].createTime+'</td></tr>'
                     }
@@ -120,6 +120,7 @@ $(function () {
          * 点击打开修改模态框
          */
         $('.updateLabel').on('click', function () {
+            $('#label-name').val($(this).data('label'));
             labelId = $(this).val();
             openAddOrSetModal('修改',1)
         });

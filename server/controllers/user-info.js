@@ -1,4 +1,4 @@
-const {Get_LabelList,Update_LabelList, Insert_LabelList,Delete_LabelList,
+const {Get_LabelList,Update_LabelList, Insert_LabelList,Delete_LabelList,Get_BlogListOne,
         Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,} = require("../../init/db-util");
 const {SetDateYMD} = require('../utils/timeDral');
 
@@ -74,8 +74,7 @@ const _Insert_LabelList = async (ctx) =>{
             message: '参数有误'
         }
     }else {
-        await Insert_LabelList(requestData.label).then(async res => {
-            console.log('新增标签列表: ',res)
+        await Insert_LabelList([requestData.label,SetDateYMD()]).then(async res => {
             data = {
                 success: true,
                 message: '操作成功'
@@ -141,6 +140,25 @@ const _Get_AdminBlogList = async (ctx) =>{
         }
     }).catch(err => {
         data = {success: false, message: '系统繁忙', list:[]};
+    })
+    ctx.body = data;
+};
+
+/**
+ *  查询一条博客列表
+ * @param ctx
+ */
+const _Get_BlogListOne = async (ctx) =>{
+    let data = null;
+    console.log('查询一条博客列表',ctx.query.id)
+    await Get_BlogListOne(ctx.query.id).then(async res => {
+        if(res.length == 0){
+            data = {success: false, message: '操作失败', list:{}};
+        }else {
+            data = {success: true, message: '操作成功', list:res[0]};
+        }
+    }).catch(err => {
+        data = {success: false, message: '系统繁忙', list:{}};
     })
     ctx.body = data;
 };
@@ -264,5 +282,6 @@ module.exports = {
     _Get_AdminBlogList,
     _Update_BlogList,
     _Insert_BlogList,
-    _Delete_BlogList
+    _Delete_BlogList,
+    _Get_BlogListOne
 };

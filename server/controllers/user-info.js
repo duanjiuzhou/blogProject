@@ -16,7 +16,7 @@ console.log('用户账号密码信息：',ctx.request.body)
  * @param {object} ctx 上下文对象
  */
 const _Get_LabelList = async (ctx) =>{
-    console.log('get标签列表label:',ctx.query.label)
+    console.log('get标签列表label:',ctx.query)
     let data = null;
     await Get_LabelList(ctx.query.label).then(async res => {
         if(res.length == 0){
@@ -96,6 +96,7 @@ const _Insert_LabelList = async (ctx) =>{
 const _Delete_LabelList =  async (ctx) =>{
     let data = null;
     const requestData = ctx.request.body;
+    console.log('删除标签列表',requestData)
     if(!requestData.id) {
         data = {
             success: false,
@@ -134,8 +135,14 @@ const _Delete_LabelList =  async (ctx) =>{
  */
 const _Get_BlogPageList = async (ctx) =>{
     let data = null;
-    const requestData = ctx.query;
-    console.log('blog分页请求数据',ctx.query)
+    const requestData = {};
+    requestData.single =  ctx.query.single === 'true' ? true : false;
+    requestData.pageNum =  Number(ctx.query.pageNum);
+    requestData.pageSize =  Number(ctx.query.pageSize);
+    if(ctx.query.id){
+        requestData.id =  Number(ctx.query.id);
+    }
+    console.log('blog分页请求数据',ctx.query,requestData)
     if(!requestData){
 
     }else {
@@ -153,8 +160,7 @@ const _Get_BlogPageList = async (ctx) =>{
             }
         })
         await Get_AllBlogListNum(requestData).then(async res => {
-            console.log(res)
-            data.total = res.FOUND_ROWS();
+            data.total = res[0]["FOUND_ROWS()"];
         }).catch(err => {
             data.total = 0;
         })

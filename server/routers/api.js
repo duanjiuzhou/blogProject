@@ -11,6 +11,7 @@ const routers = router
     .post('/label/insert.do',apiContollor._Insert_LabelList)
     .del('/label/delete.do',apiContollor._Delete_LabelList)
     .get('/blog/select.do',apiContollor._Get_AdminBlogList)
+    .get('/blog/selectPageList.do',apiContollor._Get_BlogPageList)
     .get('/blog/selectOne.do',apiContollor._Get_BlogListOne)
     .put('/blog/update.do',apiContollor._Update_BlogList)
     .post('/blog/insert.do',apiContollor._Insert_BlogList)

@@ -2,19 +2,28 @@ const query = require('./db');
 
 /**
  * 获取博客列表数据
- * @param single {boolean}  是否查询单一数据 true/false true为查询单一数据
- * @param id     {string}   标签id
+ * @param data {object} {single:true,id:ctx.params.data,pageNum:1,pageSize:12} single {boolean}  是否查询单一数据 true/false true为查询单一数据
  * @constructor
  */
-const Get_BlogList = function( single,id ) {
+const Get_BlogList = function( data ) {
     let sql = '';
-    if(single){
-         sql = `SELECT id,label,imgUrl,title,synopsis,createTime,accessNumber,commentNumber,labelId from bloglist where labelId=${id}`;
-    }else {
-         sql = `SELECT id,label,imgUrl,title,synopsis,createTime,accessNumber,commentNumber,labelId from bloglist`;
+    // 查询单一类型数据
+    if(data.single){
+         sql = `SELECT SQL_CALC_FOUND_ROWS id,label,imgUrl,title,synopsis,createTime,accessNumber,commentNumber,labelId from bloglist where labelId=${data.id}
+         order by id limit ${(data.pageNum-1)*data.pageSize},${data.pageSize}`;
+        return query( sql )
     }
-    return query( sql )
+    // 查询全部类型数据
+    else {
+         sql = `SELECT SQL_CALC_FOUND_ROWS id,label,imgUrl,title,synopsis,createTime,accessNumber,commentNumber,labelId 
+         from bloglist order by id limit ${(data.pageNum-1)*data.pageSize},${data.pageSize}`;
+        return query( sql )
+    }
+
 };
+const Get_AllBlogListNum = function () {
+    return query( 'SELECT FOUND_ROWS()' );
+}
 
 /**
  *  查询一条博客详情数据
@@ -122,6 +131,7 @@ const Delete_LabelList = function (value) {
 
 module.exports = {
     Get_BlogList,
+    Get_AllBlogListNum,
     Get_BlogListOne,
     Get_AdminBlogList,
     Update_BlogList,

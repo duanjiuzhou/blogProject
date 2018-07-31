@@ -253,7 +253,7 @@
     display: none;
     width: 150px;
     height: 15px;
-    margin: 10px auto;
+    margin: 0px auto 20px auto;
 }
 .loading span{
     display: inline-block;

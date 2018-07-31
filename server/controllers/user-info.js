@@ -1,5 +1,5 @@
 const {Get_LabelList,Update_LabelList, Insert_LabelList,Delete_LabelList,Get_BlogListOne,
-        Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,} = require("../../init/db-util");
+        Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,Get_BlogList,Get_AllBlogListNum} = require("../../init/db-util");
 const {SetDateYMD} = require('../utils/timeDral');
 
 /**
@@ -127,6 +127,43 @@ const _Delete_LabelList =  async (ctx) =>{
 };
 
 /**
+ * 博客分页查询
+ * @param ctx
+ * @returns {Promise.<void>}
+ * @private
+ */
+const _Get_BlogPageList = async (ctx) =>{
+    let data = null;
+    const requestData = ctx.query;
+    console.log('blog分页请求数据',ctx.query)
+    if(!requestData){
+
+    }else {
+        await Get_BlogList(requestData).then(async res => {
+                data = {
+                    success: true,
+                    message: '操作成功',
+                    list:res,
+                }
+        }).catch(err => {
+            data = {
+                success: false,
+                message: '系统繁忙',
+                list:[],
+            }
+        })
+        await Get_AllBlogListNum(requestData).then(async res => {
+            console.log(res)
+            data.total = res.FOUND_ROWS();
+        }).catch(err => {
+            data.total = 0;
+        })
+    }
+    console.log('blog分页响应数据',data)
+    ctx.body = data;
+};
+
+/**
  *  查询博客列表
  * @param ctx
  */
@@ -150,7 +187,7 @@ const _Get_AdminBlogList = async (ctx) =>{
  */
 const _Get_BlogListOne = async (ctx) =>{
     let data = null;
-    console.log('查询一条博客列表',ctx.query.id)
+    console.log('查询一条博客列表',ctx.query)
     await Get_BlogListOne(ctx.query.id).then(async res => {
         if(res.length == 0){
             data = {success: false, message: '操作失败', list:{}};
@@ -283,5 +320,6 @@ module.exports = {
     _Update_BlogList,
     _Insert_BlogList,
     _Delete_BlogList,
-    _Get_BlogListOne
+    _Get_BlogListOne,
+    _Get_BlogPageList
 };

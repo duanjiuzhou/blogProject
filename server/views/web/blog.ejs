@@ -74,16 +74,16 @@
 <!-- tags -->
 <div class="container tags-box">
     <% if(index == '-1'){ %>
-    <a href="/blog" class="tag tag-active">全部标签</a>
+    <a href="/blog" class="tag tag-active" value="">全部标签</a>
     <% }else{ %>
-    <a href="/blog" class="tag">全部标签</a>
+    <a href="/blog" class="tag"  value="">全部标签</a>
     <% } %>
 
     <% for(let [i, v] of labelList.entries()){ %>
     <% if(index == v.id){ %>
-    <a href="/blog/label/<%= v.id %>" class="tag tag-active"><%= v.label %></a>
+    <a href="/blog/label/<%= v.id %>" class="tag tag-active" value="<%= v.id %>"><%= v.label %></a>
     <% }else{ %>
-    <a href="/blog/label/<%= v.id %>" class="tag"><%= v.label %></a>
+    <a href="/blog/label/<%= v.id %>" class="tag" value="<%= v.id %>"><%= v.label %></a>
     <% } %>
     <% } %>
 </div>

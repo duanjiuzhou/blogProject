@@ -1,5 +1,6 @@
 const {Get_LabelList,Update_LabelList, Insert_LabelList,Delete_LabelList,Get_BlogListOne,
-        Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,Get_BlogList,Get_AllBlogListNum} = require("../../init/db-util");
+        Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,Get_BlogList,
+    Get_ListNum} = require("../../init/db-util");
 const {SetDateYMD} = require('../utils/timeDral');
 
 /**
@@ -136,22 +137,20 @@ const _Delete_LabelList =  async (ctx) =>{
 const _Get_BlogPageList = async (ctx) =>{
     let data = null;
     const requestData = {};
-    requestData.single =  ctx.query.single === 'true' ? true : false;
-    requestData.pageNum =  Number(ctx.query.pageNum);
-    requestData.pageSize =  Number(ctx.query.pageSize);
+    requestData.single = ctx.query.single === 'true' ? true : false;
+    requestData.pageNum = Number(ctx.query.pageNum);
+    requestData.pageSize = Number(ctx.query.pageSize);
     if(ctx.query.id){
-        requestData.id =  Number(ctx.query.id);
+        requestData.id = Number(ctx.query.id);
     }
     console.log('blog分页请求数据',ctx.query,requestData)
-    if(!requestData){
 
-    }else {
-        await Get_BlogList(requestData).then(async res => {
-                data = {
-                    success: true,
-                    message: '操作成功',
-                    list:res,
-                }
+    await Get_BlogList(requestData).then(async res => {
+        data = {
+            success: true,
+            message: '操作成功',
+            list:res,
+        }
         }).catch(err => {
             data = {
                 success: false,
@@ -159,13 +158,11 @@ const _Get_BlogPageList = async (ctx) =>{
                 list:[],
             }
         })
-        await Get_AllBlogListNum(requestData).then(async res => {
-            data.total = res[0]["FOUND_ROWS()"];
+    await Get_ListNum().then(async res => {
+        data.total = res[0]["FOUND_ROWS()"];
         }).catch(err => {
             data.total = 0;
-        })
-    }
-    console.log('blog分页响应数据',data)
+    })
     ctx.body = data;
 };
 
@@ -175,7 +172,14 @@ const _Get_BlogPageList = async (ctx) =>{
  */
 const _Get_AdminBlogList = async (ctx) =>{
     let data = null;
-    await Get_AdminBlogList(ctx.query.title).then(async res => {
+    let database = {};
+    if(ctx.query.title){
+        database = {title:ctx.query.title,single:true}
+    }else {
+        database.pageNum = Number(ctx.query.pageNum);
+        database.pageSize = Number(ctx.query.pageSize);
+    }
+    await Get_AdminBlogList(database).then(async res => {
         if(res.length == 0){
             data = {success: false, message: '操作失败', list:[]};
         }else {
@@ -184,6 +188,13 @@ const _Get_AdminBlogList = async (ctx) =>{
     }).catch(err => {
         data = {success: false, message: '系统繁忙', list:[]};
     })
+
+    await Get_ListNum().then(async res => {
+        data.total = res[0]["FOUND_ROWS()"];
+    }).catch(err => {
+        data.total = 0;
+    })
+
     ctx.body = data;
 };
 

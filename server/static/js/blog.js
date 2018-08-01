@@ -17,7 +17,6 @@ $(function () {
 
         var height = $(".footer-box").height() + 30;
         if (scrollHeight - (scrollTop + windowHeight) < height) {
-            console.log('到底了');
             tagId = document.getElementsByClassName('tag-active')[0].getAttribute('value');
             var data = {};
             // 单一数据查询
@@ -65,16 +64,17 @@ $(function () {
                             $("#content-box-list").append(htmlData);
                             $('.loading').css('display','none');
                             total = response.total;
-                            pageNum++;
                             if (12 * pageNum <= total) {
                                 loging = true;
                             } else if ((12 * pageNum - total) <= total && 12 * pageNum > total) {
                                 loging = true;
                             } else if (12 * pageNum > total) {
                                 loging = false;
+                                $('.segmenting-line').css('display','block');
                             }
+                            pageNum++;
                         } else {
-
+                            $('.loading').css('display','none');
                         }
                     },
                     error: function (err) {

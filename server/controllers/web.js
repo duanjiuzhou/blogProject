@@ -6,7 +6,6 @@ module.exports = {
         let index = '-1';  // 标签id，用于判断显示高亮选中标签
         let labelList = null;
         // 查询单个标签数据
-        console.log(ctx.params)
         var reg = /^[0-9]*$/;
         if(ctx.params.data){
             if(!reg.test(ctx.params.data)){return}

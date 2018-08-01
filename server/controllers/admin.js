@@ -4,7 +4,7 @@ module.exports = {
     async blogManage(ctx) {
         let blogList = null;
         let labelList = null;
-        await Get_AdminBlogList().then(async res => {
+        await Get_AdminBlogList({pageNum:1,pageSize:10}).then(async res => {
             blogList = res;
         }).catch(err => {
             blogList = [];

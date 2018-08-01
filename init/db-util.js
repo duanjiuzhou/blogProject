@@ -21,7 +21,7 @@ const Get_BlogList = function( data ) {
     }
 
 };
-const Get_AllBlogListNum = function () {
+const Get_ListNum = function () {
     return query( 'SELECT FOUND_ROWS()' );
 }
 
@@ -37,17 +37,19 @@ const Get_BlogListOne = function (value) {
 
 /**
  * 获取全部博客管理列表 或查询一条博客数据
- * @param value {array}
+ * @param value {object}
  * @constructor
  */
 const Get_AdminBlogList = function (value) {
     let sql = null;
-    if(value){
-        sql = 'SELECT id,createTime,title from bloglist  WHERE title=?';
+    // 单一查询
+    if(value.single){
+        sql = `SELECT id,createTime,title from bloglist WHERE title=${value.title}`;
     }else {
-        sql = 'SELECT id,createTime,title from bloglist';
+        sql = `SELECT SQL_CALC_FOUND_ROWS id,createTime,title from bloglist 
+        order by id limit ${(value.pageNum-1)*value.pageSize},${value.pageSize}`;
     }
-    return query( sql,[value] )
+    return query( sql )
 };
 
 /**
@@ -131,7 +133,7 @@ const Delete_LabelList = function (value) {
 
 module.exports = {
     Get_BlogList,
-    Get_AllBlogListNum,
+    Get_ListNum,
     Get_BlogListOne,
     Get_AdminBlogList,
     Update_BlogList,

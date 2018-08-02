@@ -31,7 +31,7 @@ const Get_ListNum = function () {
  * @constructor
  */
 const Get_BlogListOne = function (value) {
-    const sql = 'SELECT title,content,synopsis,labelId,imgUrl from bloglist WHERE id=?';
+    const sql = 'SELECT title,content,synopsis,labelId,label,imgUrl from bloglist WHERE id=?';
     return query(sql,[value])
 }
 
@@ -44,7 +44,7 @@ const Get_AdminBlogList = function (value) {
     let sql = null;
     // 单一查询
     if(value.single){
-        sql = `SELECT id,createTime,title from bloglist WHERE title=${value.title}`;
+        sql = `SELECT id,createTime,title from bloglist WHERE title='${value.title}'`;
     }else {
         sql = `SELECT SQL_CALC_FOUND_ROWS id,createTime,title from bloglist 
         order by id limit ${(value.pageNum-1)*value.pageSize},${value.pageSize}`;

@@ -3,7 +3,7 @@ $(function () {
     var blogId = null; // 修改或者删除博客id
     var pageNum = 1;
     var pageSize = 10;
-    var total = 0;
+    var total = -1;
 
     marked.setOptions({
         renderer: new marked.Renderer(),
@@ -241,7 +241,7 @@ $(function () {
     /**
      * 上一页
      */
-    $("prevPost").on('click',function () {
+    $("#prevPost").on('click',function () {
         if(total<=pageSize || pageNum == 1){
             return $.growl.error({
                 title: "提示",
@@ -256,19 +256,23 @@ $(function () {
     /**
      * 下一页
      */
-    $("nextPost").on('click',function () {
-        // 总页数
-        var allPage = total%pageSize>0 ? parseInt(total/pageSize)+total%pageSize : total/pageSize;
-        if(total<=pageSize || allPage == pageNum){
-          return $.growl.error({
-                title: "提示",
-                message: '已经是最后一页了'
-            });
-        }
-
-        pageNum++;
-        if(allPage >= pageNum){
+    $("#nextPost").on('click',function () {
+        if(total == -1){
+            pageNum++;
             searchBlog({pageNum:pageNum, pageSize:pageSize})
+        }else {
+            // 总页数
+            var allPage = total % pageSize > 0 ? parseInt(total / pageSize) + 1 % pageSize : total / pageSize;
+            if ((total <= pageSize || allPage == pageNum)) {
+                return $.growl.error({
+                    title: "提示",
+                    message: '已经是最后一页了'
+                });
+            }
+            pageNum++;
+            if (allPage >= pageNum) {
+                searchBlog({pageNum: pageNum, pageSize: pageSize})
+            }
         }
     })
 });

@@ -15,7 +15,3 @@ const routes = router
     })
 
 module.exports = routes;
-
-// home.get('/', async ( ctx )=>{
-//     ctx.body = ''
-// })

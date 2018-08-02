@@ -1,6 +1,9 @@
 $(function () {
     var addOrSetLabel = null; // 创建或者修改标签 {number} 0/1 0:创建 1：修改
     var blogId = null; // 修改或者删除博客id
+    var pageNum = 1;
+    var pageSize = 10;
+    var total = 0;
 
     marked.setOptions({
         renderer: new marked.Renderer(),
@@ -24,11 +27,11 @@ $(function () {
      * 获取博客列表
      * @param isData 是否带搜索框中数据进行查询 为true则不带值查询
      */
-    function searchBlog(isData) {
+    function searchBlog(item) {
         $.ajax({
             type: 'GET',
             url: '/api/blog/select.do',
-            data: isData == true ? '' : $('#search-label-form').serialize(),
+            data: item,
             success: function (response) {
                 console.log('success', response);
                 if (response.success) {
@@ -46,6 +49,7 @@ $(function () {
                      * 点击打开修改模态框 或 点击删除标签
                      */
                     openUpdateBlogOrOpenDeleteBlog();
+                    total = response.total;
                 }else {
                     $("#table-tbody").html('<tr align="center"><td colspan="4">暂无数据</td></tr>');
                 }
@@ -107,7 +111,7 @@ $(function () {
             success: function (response) {
                 console.log('新建或修改博客提交:', response);
                 if(response.success){
-                    searchBlog(true);
+                    searchBlog({pageNum:pageNum, pageSize:pageSize});
                     $.growl.notice({
                         title: "提示",
                         message: response.message
@@ -184,7 +188,9 @@ $(function () {
     /**
      * 点击搜索获取标签列表
      */
-    $("#searchBlog").on('click', searchBlog);
+    $("#searchBlog").on('click', function () {
+        searchBlog($('#search-label-form').serialize())
+    });
 
     /**
      * 保存提交
@@ -232,4 +238,37 @@ $(function () {
             addOrSetOrDelSubmit('/api/blog/insert.do','POST',$('#blog-modal-form').serialize()+'&label='+label)
         }
     });
+    /**
+     * 上一页
+     */
+    $("prevPost").on('click',function () {
+        if(total<=pageSize || pageNum == 1){
+            return $.growl.error({
+                title: "提示",
+                message: '已经是第一页了'
+            });
+        }
+        pageNum--;
+        if(pageNum >= 1){
+            searchBlog({pageNum:pageNum, pageSize:pageSize})
+        }
+    });
+    /**
+     * 下一页
+     */
+    $("nextPost").on('click',function () {
+        // 总页数
+        var allPage = total%pageSize>0 ? parseInt(total/pageSize)+total%pageSize : total/pageSize;
+        if(total<=pageSize || allPage == pageNum){
+          return $.growl.error({
+                title: "提示",
+                message: '已经是最后一页了'
+            });
+        }
+
+        pageNum++;
+        if(allPage >= pageNum){
+            searchBlog({pageNum:pageNum, pageSize:pageSize})
+        }
+    })
 });

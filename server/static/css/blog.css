@@ -295,9 +295,10 @@
 }
 
 .segmenting-line {
+    width: 90%;
     position: relative;
     height: 20px;
-    margin: 20px 0;
+    margin: 20px auto;
     background:#fff;
     display: none;
 }

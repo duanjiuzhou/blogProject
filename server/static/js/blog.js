@@ -64,6 +64,7 @@ $(function () {
                             $("#content-box-list").append(htmlData);
                             $('.loading').css('display','none');
                             total = response.total;
+                            pageNum++;
                             if (12 * pageNum <= total) {
                                 loging = true;
                             } else if ((12 * pageNum - total) <= total && 12 * pageNum > total) {
@@ -72,7 +73,7 @@ $(function () {
                                 loging = false;
                                 $('.segmenting-line').css('display','block');
                             }
-                            pageNum++;
+
                         } else {
                             $('.loading').css('display','none');
                         }

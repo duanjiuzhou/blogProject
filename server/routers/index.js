@@ -31,5 +31,8 @@ router.use('/login', login.routes(), login.allowedMethods());
 router.use('/blog', web.routes(), web.allowedMethods());
 router.use('/admin', admin.routes(), admin.allowedMethods());
 router.use('/api', api.routes(), api.allowedMethods());
+router.get('*', async (ctx) => {
+    await ctx.render('web/error', {})
+}) 
 
 module.exports = router;

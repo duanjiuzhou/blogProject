@@ -8,7 +8,9 @@ module.exports = {
         // 查询单个标签数据
         var reg = /^[0-9]*$/;
         if(ctx.params.data){
-            if(!reg.test(ctx.params.data)){return}
+            if(!reg.test(ctx.params.data)){
+                return await ctx.render('web/error');
+            }
             const data = {single:true,id:ctx.params.data,pageNum:1,pageSize:12};
             await Get_BlogList(data).then(async res => {
                 blogList = res;
@@ -32,9 +34,14 @@ module.exports = {
         }).catch (err => {
             labelList = [];
         })
-        await ctx.render('web/blog', {
-            blogList,labelList,index
-        })
+
+        if(blogList.length == 0){
+            await ctx.render('web/error');
+        }else {
+            await ctx.render('web/blog', {
+                blogList,labelList,index
+            })
+        }
     },
     async moods(ctx) {
         const title = '';
@@ -43,15 +50,22 @@ module.exports = {
         })
     },
     async details(ctx) {
-        console.log('获取动态路由的数据',ctx.params); //获取动态路由的数据
-        let blogList = null;
-        await Get_BlogListOne(ctx.params.data).then(async res => {
-            blogList = res[0];
-        }).catch(err => {
-            blogList = {};
-        })
-        await ctx.render('web/details', {
-            blogList,
-        })
+        if(isNaN(ctx.params.data)){
+            return await ctx.render('web/error')
+        }else {
+            let blogList = null;
+            await Get_BlogListOne(ctx.params.data).then(async res => {
+                if(res.length == 0){
+                    return await ctx.render('web/error');
+                }else {
+                    blogList = res[0];
+                    await ctx.render('web/details', {
+                        blogList,
+                    })
+                }
+            }).catch(async err => {
+                await ctx.render('web/error');
+            })
+        }
     },
 };

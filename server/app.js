@@ -30,7 +30,7 @@ const app = new Koa();
 app.use(bodyParser());
 
 // 配置控制台日志中间件
-app.use(koaLogger())
+// app.use(koaLogger())
 
 // 配置静态资源加载中间件
 app.use(koaStatic(path.join(__dirname, './static')));

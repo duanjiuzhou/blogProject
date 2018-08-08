@@ -2,15 +2,35 @@ const Koa = require('koa');
 const path = require('path');
 const koaStatic = require('koa-static');
 const views = require('koa-views');
-const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
+const koaLogger = require('koa-logger');
+const session = require('koa-session-minimal');
+const MysqlStore = require('koa-mysql-session');
 
 const config = require('../config');
 const routers = require('./routers/index')
 const app = new Koa();
 
+// session存储配置
+// const sessionMysqlConfig= {
+//     user: config.database.USERNAME,
+//     password: config.database.PASSWORD,
+//     database: config.database.DATABASE,
+//     host: config.database.HOST,
+//   }
+  
+  // 配置session中间件
+  // app.use(session({
+  //   key: 'USER_SID',
+  //   store: new MysqlStore(sessionMysqlConfig)
+  // }))
+
+
 // 使用ctx.body解析中间件
 app.use(bodyParser());
+
+// 配置控制台日志中间件
+app.use(koaLogger())
 
 // 配置静态资源加载中间件
 app.use(koaStatic(path.join(__dirname, './static')));

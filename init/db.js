@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const config = require('../config');
+const config = require('../config/index');
 const dbConfig = config.database;
 
 // 创建数据池

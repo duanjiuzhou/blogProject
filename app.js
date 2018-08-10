@@ -4,6 +4,7 @@ const koaStatic = require('koa-static');
 const views = require('koa-views');
 const bodyParser = require('koa-bodyparser');
 const koaLogger = require('koa-logger');
+const convert = require('koa-convert')
 const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 
@@ -30,7 +31,7 @@ const app = new Koa();
 app.use(bodyParser());
 
 // 配置控制台日志中间件
-// app.use(koaLogger())
+// app.use(convert(koaLogger()));
 
 // 配置静态资源加载中间件
 app.use(koaStatic(path.join(__dirname, './server/static')));

@@ -3,13 +3,16 @@
   "version": "0.0.1",
   "description": "a blog project",
   "main": "config.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "node app.js"
+  },
   "author": "djz",
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
+    "koa-convert": "^1.2.0",
     "koa-logger": "^3.2.0",
     "koa-mysql-session": "0.0.2",
     "koa-router": "^7.4.0",

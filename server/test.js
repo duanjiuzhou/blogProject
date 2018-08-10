@@ -23,7 +23,6 @@ let cookie = {
     secure: '',
     sameSite: '',
     signed: '',
-
 }
 
 // 使用session中间件
@@ -45,7 +44,11 @@ app.use( async ( ctx ) => {
     } else if ( ctx.url === '/' ) {
 
         // 读取session信息
+        ctx.session.isLogin = true
         ctx.session.count = ctx.session.count + 1
+        ctx.body = ctx.session
+    }else if (ctx.url === 'get'){
+        ctx.session = {};
         ctx.body = ctx.session
     }
 

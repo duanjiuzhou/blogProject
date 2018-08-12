@@ -16,14 +16,24 @@ const api = require('./api');
  * 校验用户是否登录
  * @param  {obejct} ctx 上下文对象
  */
-// router.use(async(ctx,next)=>{
-//     console.log(ctx.path);
-//     if(ctx.path == '/login'){
-//         ctx.redirect('/admin')
-//     }else {
-//         await next();
-//     }
-// });
+router.use(async(ctx,next)=>{
+    if(ctx.path == '/login'){
+        if( ctx.session && ctx.session.isLogin ){
+            ctx.redirect('/admin')
+        }else {
+            await next();
+        }
+    }
+    else if(ctx.path == '/admin' || ctx.path == '/admin/labelTable'){
+        if( ctx.session && ctx.session.isLogin ){
+            await next();
+        }else {
+            ctx.redirect('/login')
+        }
+    }else {
+        await next();
+    }
+});
 
 
 router.use('/', home.routes(), home.allowedMethods());

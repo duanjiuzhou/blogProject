@@ -1,6 +1,16 @@
 const query = require('./db');
 
 /**
+ * 用户登录判断
+ * @param value {array}
+ * @constructor
+ */
+const Get_UserLogin = function (value) {
+    const sql = `SELECT *  from userlist WHERE username=? and password=? limit 1`;
+    return query(sql,value)
+}
+
+/**
  * 获取博客列表数据
  * @param data {object} {single:true,id:ctx.params.data,pageNum:1,pageSize:12} single {boolean}  是否查询单一数据 true/false true为查询单一数据
  * @constructor
@@ -132,6 +142,7 @@ const Delete_LabelList = function (value) {
 
 
 module.exports = {
+    Get_UserLogin,
     Get_BlogList,
     Get_ListNum,
     Get_BlogListOne,

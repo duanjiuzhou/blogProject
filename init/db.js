@@ -18,7 +18,6 @@ const query = function( sql, values ) {
             } else {
                 connection.query(sql, values, ( err, rows) => {
                     if ( err ) {
-                        console.log( err )
                         reject( err )
                     } else {
                         resolve( rows )

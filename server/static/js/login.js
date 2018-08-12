@@ -1,19 +1,34 @@
 $(function () {
     $("#buttonlogintoregister").on('click',function () {
+        if(!$(".inputMaterial:eq(0)").val()){
+            return $.growl.warning({
+                title: "提示",
+                message: '账号不能为空',
+            });
+        }
+        if( !$(".inputMaterial:eq(1)").val()){
+            return $.growl.warning({
+                title: "提示",
+                message: '密码不能为空',
+            });
+        }
         submitStyle("no-drop",true);
-        console.log('form data',$('#form-box').serialize());
         $.ajax({
             type:'POST',
             url:'/api/login.do',
             data:$('#form-box').serialize(),
             success:function (response) {
-                console.log('success',response);
-
+                if(response.success){
+                    window.location.href = '/admin';
+                }else {
+                    $.growl.warning({
+                        title: "提示",
+                        message: response.message,
+                    });
+                }
                 submitStyle("pointer",false);
             },
             error:function (err) {
-                console.log('err',err);
-
                 submitStyle("pointer",false);
             }
         })

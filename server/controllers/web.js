@@ -2,7 +2,6 @@ const {Get_BlogList,Get_LabelList,Get_BlogListOne} = require("../../init/db-util
 
 module.exports = {
     async blog(ctx) {
-        console.log('session',ctx.session)
         let blogList = null;
         let index = '-1';  // 标签id，用于判断显示高亮选中标签
         let labelList = null;

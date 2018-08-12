@@ -1,6 +1,6 @@
 const {Get_LabelList,Update_LabelList, Insert_LabelList,Delete_LabelList,Get_BlogListOne,
         Get_AdminBlogList, Update_BlogList, Insert_BlogList, Delete_BlogList,Get_BlogList,
-    Get_ListNum} = require("../../init/db-util");
+    Get_ListNum,Get_UserLogin} = require("../../init/db-util");
 const {SetDateYMD} = require('../utils/timeDral');
 
 /**
@@ -8,8 +8,34 @@ const {SetDateYMD} = require('../utils/timeDral');
  * @param {object} ctx 上下文对象
  */
 const signIn = async (ctx)=>{
-console.log('用户账号密码信息：',ctx.request.body)
-    ctx.body = ctx.request.body;
+    let requestData = ctx.request.body;
+    let data = null;
+    if(!requestData.userName || !requestData.passWord){
+        data = {success: false, message: '参数异常'};
+    }else {
+        await Get_UserLogin([requestData.userName,requestData.passWord]).then(async res => {
+            if(res.length != 0){
+                // 设置session
+                ctx.session.isLogin = true;
+                data = {success: true, message: '登录成功'};
+            }else {
+                data = {success: false, message: '用户名称或者密码错误'};
+            }
+        }).catch(err => {
+            data = {success: false, message: '系统繁忙'};
+        })
+    }
+    ctx.body = data;
+};
+
+/**
+ * 用户退出
+ * @param ctx
+ * @returns {Promise.<void>}
+ */
+const signOut = async (ctx)=>{
+    ctx.session = null;
+    ctx.redirect('/login')
 };
 
 /**
@@ -17,7 +43,6 @@ console.log('用户账号密码信息：',ctx.request.body)
  * @param {object} ctx 上下文对象
  */
 const _Get_LabelList = async (ctx) =>{
-    console.log('get标签列表label:',ctx.query)
     let data = null;
     await Get_LabelList(ctx.query.label).then(async res => {
         if(res.length == 0){
@@ -38,7 +63,6 @@ const _Get_LabelList = async (ctx) =>{
 const _Update_LabelList = async (ctx) =>{
     let data = null;
     const requestData = ctx.request.body;
-    console.log('更新数据：',requestData)
     if(!requestData.label || !requestData.id){
         data = {
             success: false,
@@ -46,7 +70,6 @@ const _Update_LabelList = async (ctx) =>{
         }
     }else {
         await Update_LabelList([requestData.label,requestData.id]).then(async res => {
-            console.log('更新标签列表: ',res)
             data = {
                 success: true,
                 message: '操作成功'
@@ -68,7 +91,6 @@ const _Update_LabelList = async (ctx) =>{
 const _Insert_LabelList = async (ctx) =>{
     let data = null;
     const requestData = ctx.request.body;
-    console.log('新增数据：',requestData)
     if(!requestData.label) {
         data = {
             success: false,
@@ -97,7 +119,6 @@ const _Insert_LabelList = async (ctx) =>{
 const _Delete_LabelList =  async (ctx) =>{
     let data = null;
     const requestData = ctx.request.body;
-    console.log('删除标签列表',requestData)
     if(!requestData.id) {
         data = {
             success: false,
@@ -143,7 +164,6 @@ const _Get_BlogPageList = async (ctx) =>{
     if(ctx.query.id){
         requestData.id = Number(ctx.query.id);
     }
-    console.log('blog分页请求数据',ctx.query,requestData)
 
     await Get_BlogList(requestData).then(async res => {
         data = {
@@ -204,7 +224,6 @@ const _Get_AdminBlogList = async (ctx) =>{
  */
 const _Get_BlogListOne = async (ctx) =>{
     let data = null;
-    console.log('查询一条博客列表',ctx.query)
     await Get_BlogListOne(ctx.query.id).then(async res => {
         if(res.length == 0){
             data = {success: false, message: '操作失败', list:{}};
@@ -226,7 +245,6 @@ const _Get_BlogListOne = async (ctx) =>{
 const _Update_BlogList = async (ctx) =>{
     let data = null;
     const requestData = ctx.request.body;
-    console.log('更新数据：',requestData)
     if(!requestData.label || !requestData.imgUrl || !requestData.title || !requestData.synopsis || !requestData.content
        || !requestData.labelId || !requestData.id){
         data = {
@@ -238,7 +256,6 @@ const _Update_BlogList = async (ctx) =>{
             requestData.label,requestData.imgUrl,requestData.title,requestData.synopsis,
             requestData.content, requestData.labelId,requestData.id,
         ]).then(async res => {
-            console.log('更新标签列表: ',res)
             data = {
                 success: true,
                 message: '操作成功'
@@ -262,7 +279,6 @@ const _Update_BlogList = async (ctx) =>{
 const _Insert_BlogList = async (ctx) =>{
     let data = null;
     const requestData = ctx.request.body;
-    console.log('新增数据：',requestData)
     if(!requestData.label || !requestData.imgUrl || !requestData.title ||
         !requestData.synopsis || !requestData.content || !requestData.labelId) {
         data = {
@@ -274,7 +290,6 @@ const _Insert_BlogList = async (ctx) =>{
             requestData.label,requestData.imgUrl,requestData.title,requestData.synopsis,requestData.content,
             SetDateYMD(),0,0,requestData.labelId
         ]).then(async res => {
-            console.log('新增标签列表: ',res)
             data = {
                 success: true,
                 message: '操作成功'
@@ -329,6 +344,7 @@ const _Delete_BlogList = async (ctx) =>{
 
 module.exports = {
     signIn,
+    signOut,
     _Get_LabelList,
     _Update_LabelList,
     _Insert_LabelList,

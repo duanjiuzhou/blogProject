@@ -327,6 +327,29 @@
     font-size: 16px;
     color: #aaa;
 }
+.jian-icon{
+    border: 2px solid #a7a5a7;
+    border-radius: 22px;
+    height: 35px !important;
+    width: 35px !important;
+    transition: all 0.3s;
+}
+.jian-icon-color{
+    border-color: #575c60;
+}
+.jian-icon:hover{
+    border-color: #ffffff;
+}
+.jian-icon>i{
+    font-size: 17px !important;
+    width: 35px;
+    font-weight: 600;
+    line-height: 35px;
+    display: inline-block;
+    margin-left: -4px;
+    margin-top: -1px;
+    vertical-align: super;
+}
 
 .footer-box-other{
     background-color: #0e151b;

@@ -33,7 +33,6 @@ $(function () {
             url: '/api/blog/select.do',
             data: item,
             success: function (response) {
-                console.log('success', response);
                 if (response.success) {
                     var htmlData = '';
                     var data = response.list;
@@ -55,7 +54,6 @@ $(function () {
                 }
             },
             error: function (err) {
-                console.log('err', err);
                 $.growl.error({
                     title: "提示",
                     message: '系统异常',
@@ -73,7 +71,6 @@ $(function () {
             url: '/api/blog/selectOne.do',
             data: data,
             success: function (response) {
-                console.log('success', response);
                 if (response.success) {
                     $("#title").val(response.list.title);
                     $("#imgUrl").val(response.list.imgUrl);
@@ -88,7 +85,6 @@ $(function () {
                 openAddOrSetModal('修改',1)
             },
             error: function (err) {
-                console.log('err', err);
                 $.growl.error({
                     title: "提示",
                     message: '系统异常',
@@ -109,7 +105,6 @@ $(function () {
             url: url,
             data: data,
             success: function (response) {
-                console.log('新建或修改博客提交:', response);
                 if(response.success){
                     searchBlog({pageNum:pageNum, pageSize:pageSize});
                     $.growl.notice({
@@ -125,7 +120,6 @@ $(function () {
                 $('#blogModal').modal('hide');
             },
             error: function (err) {
-                console.log('err', err);
                 $.growl.error({
                     title: "提示",
                     message: '系统异常',
@@ -227,7 +221,6 @@ $(function () {
             });
         }
 
-        console.log('提交数据',$('#blog-modal-form').serialize())
         var label = $('#label option:selected').text();
         // 修改
         if(addOrSetLabel){

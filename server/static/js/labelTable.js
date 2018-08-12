@@ -11,7 +11,6 @@ $(function () {
             url: '/api/lable/select.do',
             data: isData == true ? '' : $('#search-label-form').serialize(),
             success: function (response) {
-                console.log('success', response);
                 if (response.success) {
                     var htmlData = '';
                     var data = response.list;
@@ -32,7 +31,6 @@ $(function () {
                 }
             },
             error: function (err) {
-                console.log('err', err);
                 $.growl.error({
                     title: "提示",
                     message: '系统异常',
@@ -64,7 +62,6 @@ $(function () {
             url: url,
             data: data,
             success: function (response) {
-                console.log('新建或修改标签提交:', response);
                 if(response.success){
                     searchLabel(true);
                     $.growl.notice({
@@ -80,7 +77,6 @@ $(function () {
                 $('#labelModal').modal('hide');
             },
             error: function (err) {
-                console.log('err', err);
                 $.growl.error({
                     title: "提示",
                     message: '系统异常',

@@ -6,6 +6,7 @@ const apiContollor = require('../controllers/user-info');
 
 const routers = router
     .post('/login.do',apiContollor.signIn)
+    .get('/signOut.do',apiContollor.signOut)
     .get('/lable/select.do',apiContollor._Get_LabelList)
     .put('/label/update.do',apiContollor._Update_LabelList)
     .post('/label/insert.do',apiContollor._Insert_LabelList)

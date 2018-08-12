@@ -35,7 +35,6 @@ $(function () {
                     url: '/api/blog/selectPageList.do',
                     data: data,
                     success: function (response) {
-                        console.log('success', response);
                         if (response.success) {
                             var htmlData = '';
                             var data = response.list;
@@ -79,7 +78,6 @@ $(function () {
                         }
                     },
                     error: function (err) {
-                        console.log('err', err);
                     }
                 })
             }

@@ -1,5 +1,5 @@
 $(function () {
-    var pageNum = 1;
+    var pageNum = 2;
     var tagId;  // 标签id
     var loging = true;  // 是否加载 false 不加载，true 加载
     var total = 0;  // 总页数
